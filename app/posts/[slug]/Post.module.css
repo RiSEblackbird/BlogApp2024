@@ -1,0 +1,124 @@
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.article {
+  background-color: var(--card-background);
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.header {
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.title {
+  font-size: 28px;
+  margin-bottom: 10px;
+  color: var(--text-color);
+}
+
+.meta {
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 10px;
+}
+
+.date, .author {
+  margin-right: 10px;
+}
+
+.tags {
+  margin-bottom: 10px;
+}
+
+.tag {
+  display: inline-block;
+  background-color: var(--tag-background);
+  color: var(--tag-color);
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  margin-right: 5px;
+}
+
+.content {
+  padding: 20px;
+  color: var(--text-color);
+}
+
+/* リンクのスタイル */
+.content a {
+  color: #3b82f6;
+  text-decoration: none;
+}
+
+.content a:hover {
+  text-decoration: underline;
+}
+
+/* コードブロックのスタイル */
+.content pre {
+  background-color: #2d2d2d;
+  border-radius: 4px;
+  padding: 16px;
+  overflow-x: auto;
+}
+
+.content code {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 14px;
+}
+
+/* 既存のスタイルに追加 */
+
+.content h1, .content h2, .content h3, .content h4, .content h5, .content h6 {
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+}
+
+.content p {
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+
+.content ul, .content ol {
+  margin-bottom: 1em;
+  padding-left: 2em;
+}
+
+.content li {
+  margin-bottom: 0.5em;
+}
+
+.content blockquote {
+  border-left: 4px solid #4a5568;
+  padding-left: 1em;
+  margin-left: 0;
+  font-style: italic;
+  color: #a0aec0;
+}
+
+.content img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1em;
+}
+
+.content th, .content td {
+  border: 1px solid #4a5568;
+  padding: 0.5em;
+}
+
+.content th {
+  background-color: #2d3748;
+}

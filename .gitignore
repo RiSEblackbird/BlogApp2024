@@ -35,5 +35,5 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 
-# Article data files
-/posts
+# # Article data files
+# /posts

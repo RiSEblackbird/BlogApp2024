@@ -1,3 +1,3 @@
 [submodule "posts"]
 	path = posts
-	url = https://github.com/RiSEblackbird/BlogApp2024-posts.git
+	url = git@github.com:RiSEblackbird/BlogApp2024-posts.git

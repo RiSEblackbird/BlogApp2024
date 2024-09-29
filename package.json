@@ -7,7 +7,7 @@
     "build": "GIT_TRACE=1 GIT_CURL_VERBOSE=1 git submodule update --init --recursive",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "GIT_TRACE=1 GIT_CURL_VERBOSE=1 git submodule update --init --recursive"
+    "vercel-build": "apt-get update && apt-get install -y git && git submodule update --init --recursive && next build"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

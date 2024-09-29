@@ -14,10 +14,18 @@ jobs:
         with:
           submodules: true
 
+      - name: Set up SSH
+        run: |
+          mkdir -p ~/.ssh
+          echo "$SSH_PRIVATE_KEY" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan github.com >> ~/.ssh/known_hosts
+
       - name: Install dependencies
         run: npm install
 
-      - name: Build and Deploy
+      - name: Build and Deploy to Vercel
         run: npx vercel --prod
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          GIT_SSH_KEY: ${{ secrets.SSH_PRIVATE_KEY }}

@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "git submodule update --init --recursive && next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "vercel-build": "git submodule update --init --recursive && next build"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

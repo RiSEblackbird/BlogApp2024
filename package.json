@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "GIT_TRACE=1 GIT_CURL_VERBOSE=1 git submodule update --init --recursive && next build --debug",
+    "build": "GIT_TRACE=1 GIT_CURL_VERBOSE=1 git submodule update --init --recursive",
     "start": "next start",
     "lint": "next lint",
     "vercel-build": "GIT_TRACE=1 GIT_CURL_VERBOSE=1 git submodule update --init --recursive"

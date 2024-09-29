@@ -37,4 +37,5 @@ next-env.d.ts
 
 # # Article data files
 # /posts
-.vercel
+
+.env

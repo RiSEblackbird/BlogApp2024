@@ -26,7 +26,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         </article>
       </div>
     )
-  } catch (error) {
+  } catch {
     notFound()
   }
 }

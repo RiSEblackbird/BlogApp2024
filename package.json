@@ -7,7 +7,7 @@
     "build": "git submodule update --init --recursive && next build",
     "start": "next start",
     "lint": "next lint",
-    "vercel-build": "git submodule update --init --recursive && next build"
+    "vercel-build": "git config --global url.\"https://${GH_TOKEN}@github.com/\".insteadOf \"https://github.com/\" && git submodule update --init --recursive"
   },
   "dependencies": {
     "gray-matter": "^4.0.3",

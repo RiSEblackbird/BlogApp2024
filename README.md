@@ -1,4 +1,4 @@
-# BlogApp2024
+# BlogApp2024（あれこれ My Blog）
 - サイトページ: https://blog-app2024-taishisenoos-projects.vercel.app/
 - 私用ブログサイト
     - 技術ネタ、買ったもの雑記、ゲーム 等...
@@ -6,6 +6,31 @@
 
 ------------
  
+
+
+## 起動
+
+```bash
+npm run dev
+```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## 記事更新後の取り込み操作手順(submodule用リポジトリの更新後)
+
+```$ git submodule update --remote --merge```
+
+```$ git add posts```
+
+```$ git commit -m "Update submodule post reference"```
+
+```$ git push origin master```
+
+## その他
+
+```$ git submodule add https://github.com/RiSEblackbird/BlogApp2024-posts.git posts```
+
+
 ------------
 
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
@@ -44,9 +69,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## その他
-
-```git submodule add https://github.com/RiSEblackbird/BlogApp2024-posts.git posts```
-
-

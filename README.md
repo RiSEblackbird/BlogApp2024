@@ -1,3 +1,14 @@
+# BlogApp2024
+- サイトページ: https://blog-app2024-taishisenoos-projects.vercel.app/
+- 私用ブログサイト
+    - 技術ネタ、買ったもの雑記、ゲーム 等...
+
+
+------------
+------------
+
+------------
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## Getting Started

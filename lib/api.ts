@@ -8,7 +8,9 @@ import { Post } from '@/types'
 const postsDirectory = path.join(process.cwd(), 'posts')
 
 async function markdownToHtml(markdown: string) {
-  const result = await remark().use(html).process(markdown)
+  const result = await remark()
+    .use(html, { sanitize: false }) // sanitizeをfalseに設定
+    .process(markdown)
   return result.toString()
 }
 
@@ -21,6 +23,8 @@ export async function getAllPosts(): Promise<Post[]> {
     const { data, content } = matter(fileContents)
 
     const htmlContent = await markdownToHtml(content)
+
+
 
     return {
       slug,
@@ -49,10 +53,16 @@ export async function getPostBySlug(slug: string): Promise<Post> {
 
   const htmlContent = await markdownToHtml(content)
 
+  // 画像パスを相対パスから絶対パスに変換
+  const processedHtmlContent = htmlContent.replace(
+    /src="\.\/images\//g,
+    `src="/posts/images/`
+  )
+
   return {
     slug,
     title: data.title,
-    content: htmlContent,
+    content: processedHtmlContent,
     createdAt: data.createdAt || data.date || '',
     updatedAt: data.updatedAt || data.date || '',
     author: data.author || '',

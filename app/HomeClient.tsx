@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Post } from '@/types'
 import { FaGithub } from 'react-icons/fa'
 
@@ -18,6 +18,11 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
     })
     setPosts(sortedPosts)
   }
+
+  // 初回レンダリング時にソートを実行
+  useEffect(() => {
+    sortPosts()
+  }, [sortBy, sortOrder])
 
   return (
     <main className="container mx-auto px-4 py-8 relative">
@@ -50,12 +55,13 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
           <option value="desc">降順</option>
           <option value="asc">昇順</option>
         </select>
-        <button
+        {/* 並び替えボタンの要否はしばらく後に再検討 */}
+        {/* <button
           onClick={sortPosts}
           className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           並び替え
-        </button>
+        </button> */}
       </div>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">

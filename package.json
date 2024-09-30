@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "GIT_TRACE=1 GIT_CURL_VERBOSE=1 git submodule update --init --recursive",
+    "build": "git submodule update --init --recursive",
     "start": "next start",
     "lint": "next lint",
+    "check": "npm run lint && npm run build",
     "vercel-build": "git config --global url.\"https://${GH_TOKEN}:@github.com/\".insteadOf \"https://github.com/\" && git submodule update --init --recursive && next build"
   },
   "dependencies": {

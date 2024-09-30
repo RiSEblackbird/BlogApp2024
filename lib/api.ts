@@ -26,7 +26,8 @@ export async function getAllPosts(): Promise<Post[]> {
       slug,
       title: data.title,
       content: htmlContent,
-      date: data.date || '',
+      createdAt: data.createdAt || data.date || '',
+      updatedAt: data.updatedAt || data.date || '',
       author: data.author || '',
       tags: data.tags || []
     }
@@ -52,7 +53,8 @@ export async function getPostBySlug(slug: string): Promise<Post> {
     slug,
     title: data.title,
     content: htmlContent,
-    date: data.date || '',
+    createdAt: data.createdAt || data.date || '',
+    updatedAt: data.updatedAt || data.date || '',
     author: data.author || '',
     tags: data.tags || []
   }

@@ -1,6 +1,7 @@
 import { Post } from '@/types'
 import { getPostBySlug, getAllPosts } from '@/lib/api'
 import { notFound } from 'next/navigation'
+import Link from 'next/link' // Linkコンポーネントをインポート
 import styles from './Post.module.css'
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
@@ -9,6 +10,9 @@ export default async function PostPage({ params }: { params: { slug: string } })
     
     return (
       <div className={styles.container}>
+        <div className={styles.topRightLink}>
+          <Link href="/">一覧に戻る</Link>
+        </div>
         <article className={styles.article}>
           <header className={styles.header}>
             <h1 className={styles.title}>{post.title}</h1>
@@ -28,6 +32,9 @@ export default async function PostPage({ params }: { params: { slug: string } })
             dangerouslySetInnerHTML={{ __html: post.content }} 
           />
         </article>
+        <div className={styles.bottomRightLink}>
+          <Link href="/">一覧に戻る</Link>
+        </div>
       </div>
     )
   } catch {

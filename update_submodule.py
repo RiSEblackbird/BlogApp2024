@@ -18,8 +18,13 @@
 import subprocess
 
 def run_command(command):
-    result = subprocess.run(command, shell=True, check=True, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-    return result.stdout.strip()
+    result = subprocess.run(command, shell=True, check=False, text=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+    print(result.stdout)
+    if result.stderr:
+        print(f"Error: {result.stderr}")
+    if result.returncode != 0:
+        raise subprocess.CalledProcessError(result.returncode, command)
+
 
 def update_submodule():
     # git submodule update --remote --merge
@@ -36,11 +41,20 @@ def add_submodule():
     print("Adding submodule...")
     run_command("git add posts")
 
+def has_changes():
+    # git status --porcelain で変更があるかどうか確認
+    print("Checking for changes...")
+    status = run_command("git status --porcelain")
+    return bool(status)
+
 def commit_changes(last_commit_message):
-    # git commit -m "Update submodule post reference; {last_commit_message}"
-    commit_message = f"Update submodule post reference; {last_commit_message}"
-    print(f"Committing changes with message: {commit_message}")
-    run_command(f'git commit -m "{commit_message}"')
+    # 変更がある場合のみコミット
+    if has_changes():
+        commit_message = f"Update submodule post reference; {last_commit_message}"
+        print(f"Committing changes with message: {commit_message}")
+        run_command(f'git commit -m "{commit_message}"')
+    else:
+        print("No changes to commit.")
 
 def push_changes():
     # git push origin master

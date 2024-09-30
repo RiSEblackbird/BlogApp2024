@@ -2,12 +2,25 @@
   max-width: 800px;
   margin: 0 auto;
   padding: 20px;
+  position: relative;
+}
+
+.topRightLink {
+  position: absolute;
+  top: 10px; /* ページ先頭からの距離 */
+  right: 10px; /* 右端からの距離 */
+}
+
+.bottomRightLink {
+  margin-top: 20px; /* 記事からの距離 */
+  text-align: right; /* 右端に配置 */
 }
 
 .article {
   background-color: var(--card-background);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-top: 40px; /* リンクとの重なりを防ぐためにマージンを追加 */
 }
 
 .header {

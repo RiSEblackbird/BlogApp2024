@@ -12,8 +12,17 @@ def run_custom_tree_command(project_root, output_file):
     バックエンドとフロントエンドの構造を分けて表示します。
     """
     important_paths = [
-        "app", "app\posts", "app\posts\[slug]", "lib", ".gitattributes", ".gitignore",
-        "docker-compose.yml", "README.md", ".github/workflows"
+        "app", 
+        "app\posts", 
+        "app\posts\[slug]", 
+        "lib", 
+        ".gitattributes", 
+        ".gitignore",
+        "docker-compose.yml", 
+        "README.md", 
+        ".github/workflows",
+        ".vercel",
+        ".next"
     ]
 
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -39,20 +48,7 @@ def copy_files(project_root, dest_folder, files_to_copy, tree_output_file):
     for file in files_to_copy:
         src_path = os.path.join(project_root, file)
         if os.path.exists(src_path):
-            # Dockerfileはファイル名で区別してコピー保存する
-            if "Dockerfile" in src_path:
-                if "backend" in src_path:
-                    file = file.replace("Dockerfile", "(backend)Dockerfile")
-                    dest_path = os.path.join(dest_folder, os.path.basename(file))
-                elif "frontend" in src_path:
-                    file = file.replace("Dockerfile", "(frontend)Dockerfile")
-                    dest_path = os.path.join(dest_folder, os.path.basename(file))
-                else:
-                    file = file.replace("Dockerfile", "(root)Dockerfile")
-                    dest_path = os.path.join(dest_folder, os.path.basename(file))
-            else:
-                dest_path = os.path.join(dest_folder, os.path.basename(file))
-
+            dest_path = os.path.join(dest_folder, os.path.basename(file))
             os.makedirs(os.path.dirname(dest_path), exist_ok=True)
             shutil.copy2(src_path, dest_path)
             copied_files.append(file)
@@ -89,7 +85,8 @@ def main():
         "tailwind.config.ts",
         "tsconfig.json",
         "types.ts",
-        "lib\api.ts"
+        "lib\api.ts",
+        ".github\workflows\deploy.yml"
     ]
     normal_dest = os.path.join(base_dest_folder, "normal")
     copy_files(project_root, normal_dest, normal_files, tree_output_file)

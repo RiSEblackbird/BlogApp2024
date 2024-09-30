@@ -48,8 +48,16 @@ def copy_files(project_root, dest_folder, files_to_copy, tree_output_file):
     for file in files_to_copy:
         src_path = os.path.join(project_root, file)
         if os.path.exists(src_path):
-            dest_path = os.path.join(dest_folder, os.path.basename(file))
-            os.makedirs(os.path.dirname(dest_path), exist_ok=True)
+            if "page.tsx" in src_path:
+                if "[slug]" in src_path:
+                    new_filename = "(app_[slug]_)" + os.path.basename(file)
+                    dest_path = os.path.join(dest_folder, os.path.basename(new_filename))
+                else:
+                    new_filename = "(app_)" + os.path.basename(file)
+                    dest_path = os.path.join(dest_folder, os.path.basename(new_filename))
+            else:
+                dest_path = os.path.join(dest_folder, os.path.basename(file))
+            # os.makedirs(os.path.dirname(dest_path), exist_ok=True)
             shutil.copy2(src_path, dest_path)
             copied_files.append(file)
             print(f"{file} を {dest_folder} にコピーしました")
@@ -85,8 +93,10 @@ def main():
         "tailwind.config.ts",
         "tsconfig.json",
         "types.ts",
-        "lib\api.ts",
-        ".github\workflows\deploy.yml"
+        "lib\\api.ts",
+        ".github\workflows\deploy.yml",
+        "app\page.tsx",
+        "app\HomeClient.tsx",
     ]
     normal_dest = os.path.join(base_dest_folder, "normal")
     copy_files(project_root, normal_dest, normal_files, tree_output_file)

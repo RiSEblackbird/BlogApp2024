@@ -12,7 +12,7 @@ export default async function Home() {
         <FaGithub className="text-3xl text-gray-600 hover:text-gray-800 dark:text-gray-400 dark:hover:text-gray-200" />
       </Link>
       
-      <h1 className="text-4xl font-bold mb-4 text-center">あれこれ My Blog</h1>
+      <h1 className="text-4xl font-bold mb-4 text-center">あれこれ</h1>
       
       <div className="text-center mb-8">
         <Link href="https://github.com/RiSEblackbird/BlogApp2024/issues" className="text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300">

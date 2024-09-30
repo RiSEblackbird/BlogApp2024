@@ -1,5 +1,5 @@
-# BlogApp2024（あれこれ My Blog）
-- サイトページ: https://blog-app2024-taishisenoos-projects.vercel.app/
+# BlogApp2024（site_name: あれこれ）
+- サイトページ: https://blog-app2024-areyakoreya.vercel.app/
 - 私用ブログサイト
     - 技術ネタ、買ったもの雑記、ゲーム 等...
 

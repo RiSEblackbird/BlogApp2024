@@ -22,7 +22,8 @@ def run_custom_tree_command(project_root, output_file):
         "README.md", 
         ".github/workflows",
         ".vercel",
-        ".next"
+        ".next",
+        "pages\api\images"
     ]
 
     with open(output_file, 'w', encoding='utf-8') as f:
@@ -97,6 +98,7 @@ def main():
         ".github\workflows\deploy.yml",
         "app\page.tsx",
         "app\HomeClient.tsx",
+        "pages\\api\images\[...path].ts"
     ]
     normal_dest = os.path.join(base_dest_folder, "normal")
     copy_files(project_root, normal_dest, normal_files, tree_output_file)

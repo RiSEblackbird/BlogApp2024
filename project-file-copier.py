@@ -98,7 +98,8 @@ def main():
         ".github\workflows\deploy.yml",
         "app\page.tsx",
         "app\HomeClient.tsx",
-        "pages\\api\images\[...path].ts"
+        "pages\\api\images\[...path].ts",
+        "app\\layout.tsx"
     ]
     normal_dest = os.path.join(base_dest_folder, "normal")
     copy_files(project_root, normal_dest, normal_files, tree_output_file)

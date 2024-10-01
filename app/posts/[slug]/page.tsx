@@ -3,6 +3,37 @@ import { getPostBySlug, getAllPosts } from '@/lib/api'
 import { notFound } from 'next/navigation'
 import Link from 'next/link' // Linkコンポーネントをインポート
 import styles from './Post.module.css'
+import { Metadata } from 'next'
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  try {
+    const post: Post = await getPostBySlug(params.slug)
+    return {
+      title: post.title,
+      description: post.content.substring(0, 200), // 最初の200文字を説明として使用
+      openGraph: {
+        title: post.title,
+        description: post.content.substring(0, 200),
+        url: `https://blog-app2024-areyakoreya.vercel.app/posts/${post.slug}`,
+        type: 'article',
+        publishedTime: post.createdAt,
+        modifiedTime: post.updatedAt,
+        authors: [post.author],
+        tags: post.tags,
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: post.title,
+        description: post.content.substring(0, 200),
+      },
+    }
+  } catch {
+    return {
+      title: 'Post Not Found',
+      description: 'The requested post could not be found.',
+    }
+  }
+}
 
 export default async function PostPage({ params }: { params: { slug: string } }) {
   try {

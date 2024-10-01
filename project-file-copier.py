@@ -89,7 +89,6 @@ def main():
         "app\posts\[slug]\page.tsx",
         "app\posts\[slug]\Post.module.css",
         "next.config.mjs",
-        "package-lock.json",
         "package.json",
         "tailwind.config.ts",
         "tsconfig.json",

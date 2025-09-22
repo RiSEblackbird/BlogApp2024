@@ -28,3 +28,52 @@ body {
     text-wrap: balance;
   }
 }
+
+/* highlight.js GitHub Dark theme (subset) */
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  background: #0d1117;
+  color: #c9d1d9;
+}
+.hljs-comment,
+.hljs-quote {
+  color: #8b949e;
+  font-style: italic;
+}
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-subst {
+  color: #ff7b72;
+}
+.hljs-literal,
+.hljs-number,
+.hljs-selector-attr,
+.hljs-selector-pseudo {
+  color: #79c0ff;
+}
+.hljs-string,
+.hljs-doctag {
+  color: #a5d6ff;
+}
+.hljs-title,
+.hljs-section,
+.hljs-selector-id {
+  color: #d2a8ff;
+}
+.hljs-type,
+.hljs-class .hljs-title {
+  color: #ffa657;
+}
+.hljs-tag,
+.hljs-name,
+.hljs-attribute {
+  color: #7ee787;
+}
+.hljs-emphasis {
+  font-style: italic;
+}
+.hljs-strong {
+  font-weight: 700;
+}

@@ -2,14 +2,28 @@ import fs from 'fs'
 import path from 'path'
 import matter from 'gray-matter'
 import { remark } from 'remark'
-import html from 'remark-html'
+import remarkGfm from 'remark-gfm'
+import remarkRehype from 'remark-rehype'
+import rehypeRaw from 'rehype-raw'
+import rehypeSlug from 'rehype-slug'
+import rehypeAutolinkHeadings from 'rehype-autolink-headings'
+import rehypeExternalLinks from 'rehype-external-links'
+import rehypeHighlight from 'rehype-highlight'
+import rehypeStringify from 'rehype-stringify'
 import { Post } from '@/types'
 
 const postsDirectory = path.join(process.cwd(), 'posts')
 
 async function markdownToHtml(markdown: string) {
   const result = await remark()
-    .use(html, { sanitize: false }) // sanitizeをfalseに設定
+    .use(remarkGfm)
+    .use(remarkRehype, { allowDangerousHtml: true })
+    .use(rehypeRaw) // Markdownに含まれる生のHTMLを許可
+    .use(rehypeSlug) // 見出しにIDを付与
+    .use(rehypeAutolinkHeadings, { behavior: 'append' }) // 見出しにリンク
+    .use(rehypeExternalLinks, { target: '_blank', rel: ['nofollow', 'noopener', 'noreferrer'] })
+    .use(rehypeHighlight)
+    .use(rehypeStringify, { allowDangerousHtml: true })
     .process(markdown)
   return result.toString()
 }

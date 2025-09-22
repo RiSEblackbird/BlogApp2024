@@ -58,9 +58,9 @@ export default async function PostPage({ params }: { params: { slug: string } })
               ))}
             </div>
           </header>
-          <div 
-            className={styles.content} 
-            dangerouslySetInnerHTML={{ __html: post.content }} 
+          <div
+            className={`${styles.content} prose prose-invert max-w-none`}
+            dangerouslySetInnerHTML={{ __html: post.content }}
           />
         </article>
         <div className={styles.bottomRightLink}>

@@ -1,28 +1,50 @@
 'use client'
 
 import Link from 'next/link'
-import { useState, useEffect } from 'react'
+import { useState, useMemo } from 'react'
 import { Post } from '@/types'
 import { FaGithub } from 'react-icons/fa'
 
 export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
-  const [posts, setPosts] = useState(initialPosts)
+  // 元データ
+  const [rawPosts] = useState(initialPosts)
+
+  // ソート状態
   const [sortBy, setSortBy] = useState('createdAt')
   const [sortOrder, setSortOrder] = useState('desc')
 
-  const sortPosts = () => {
-    const sortedPosts = [...posts].sort((a, b) => {
-      const dateA = new Date(a[sortBy as keyof Post] as string)
-      const dateB = new Date(b[sortBy as keyof Post] as string)
-      return sortOrder === 'asc' ? dateA.getTime() - dateB.getTime() : dateB.getTime() - dateA.getTime()
-    })
-    setPosts(sortedPosts)
+  // 検索入力状態（フォームの入力値）
+  const [searchMethod, setSearchMethod] = useState<'contains' | 'startsWith' | 'endsWith'>('contains')
+  const [searchText, setSearchText] = useState('')
+
+  // 適用済みの検索条件（ボタン押下で更新）
+  const [appliedMethod, setAppliedMethod] = useState<'contains' | 'startsWith' | 'endsWith'>('contains')
+  const [appliedText, setAppliedText] = useState('')
+
+  const handleSearch = () => {
+    setAppliedMethod(searchMethod)
+    setAppliedText(searchText)
   }
 
-  // 初回レンダリング時にソートを実行
-  useEffect(() => {
-    sortPosts()
-  }, [sortBy, sortOrder])
+  // 表示用配列（検索→ソートの順で派生）
+  const displayPosts = useMemo(() => {
+    const text = appliedText.trim().toLowerCase()
+    const filtered = text
+      ? rawPosts.filter((post) => {
+          const target = (post.title || '').toLowerCase()
+          if (appliedMethod === 'startsWith') return target.startsWith(text)
+          if (appliedMethod === 'endsWith') return target.endsWith(text)
+          return target.includes(text)
+        })
+      : rawPosts
+
+    const sorted = [...filtered].sort((a, b) => {
+      const dateA = new Date(a[sortBy as keyof Post] as string).getTime()
+      const dateB = new Date(b[sortBy as keyof Post] as string).getTime()
+      return sortOrder === 'asc' ? dateA - dateB : dateB - dateA
+    })
+    return sorted
+  }, [rawPosts, appliedText, appliedMethod, sortBy, sortOrder])
 
   return (
     <main className="container mx-auto px-4 py-8 relative">
@@ -38,34 +60,54 @@ export default function HomeClient({ initialPosts }: { initialPosts: Post[] }) {
         </Link>
       </div>
 
-      <div className="flex justify-end mb-4">
-        <select
-          value={sortBy}
-          onChange={(e) => setSortBy(e.target.value)}
-          className="mr-2 p-2 border rounded text-black"
-        >
-          <option value="createdAt">作成日時</option>
-          <option value="updatedAt">更新日時</option>
-        </select>
-        <select
-          value={sortOrder}
-          onChange={(e) => setSortOrder(e.target.value)}
-          className="mr-2 p-2 border rounded text-black"
-        >
-          <option value="desc">降順</option>
-          <option value="asc">昇順</option>
-        </select>
-        {/* 並び替えボタンの要否はしばらく後に再検討 */}
-        {/* <button
-          onClick={sortPosts}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-        >
-          並び替え
-        </button> */}
+      <div className="flex justify-end items-center mb-4">
+        <div className="flex items-center mr-2">
+          <select
+            value={searchMethod}
+            onChange={(e) => setSearchMethod(e.target.value as 'contains' | 'startsWith' | 'endsWith')}
+            className="mr-2 p-2 border rounded text-black"
+          >
+            <option value="contains">部分一致</option>
+            <option value="startsWith">前方一致</option>
+            <option value="endsWith">後方一致</option>
+          </select>
+          <input
+            type="text"
+            value={searchText}
+            onChange={(e) => setSearchText(e.target.value)}
+            placeholder="タイトルを検索"
+            className="mr-2 p-2 border rounded text-black"
+          />
+          <button
+            onClick={handleSearch}
+            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          >
+            検索
+          </button>
+        </div>
+
+        <div className="flex items-center">
+          <select
+            value={sortBy}
+            onChange={(e) => setSortBy(e.target.value)}
+            className="mr-2 p-2 border rounded text-black"
+          >
+            <option value="createdAt">作成日時</option>
+            <option value="updatedAt">更新日時</option>
+          </select>
+          <select
+            value={sortOrder}
+            onChange={(e) => setSortOrder(e.target.value)}
+            className="mr-2 p-2 border rounded text-black"
+          >
+            <option value="desc">降順</option>
+            <option value="asc">昇順</option>
+          </select>
+        </div>
       </div>
       
       <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-        {posts.map((post) => (
+        {displayPosts.map((post) => (
           <Link key={post.slug} href={`/posts/${post.slug}`} className="block">
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md overflow-hidden transition-transform hover:scale-105">
               <div className="p-6">
